@@ -1,6 +1,6 @@
 {
-  "name": "select-range-time",
-  "description": "select-range-time",
+  "name": "select-time-range",
+  "description": "select-time-range",
   "version": "1.0.0",
   "author": "marven@163.com",
   "license": "MIT",
