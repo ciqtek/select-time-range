@@ -1,4 +1,4 @@
-# select-range-time
+# select-time-range
 
 > 日期时间选择插件
 
@@ -8,7 +8,7 @@
 
 ### Installation
 ```bash
-npm install select-range-time --save
+npm install select-time-range --save
 ```
 
 ### Use
@@ -65,7 +65,7 @@ range             | 显示的日期范围(天)              | String            
 start-time        | 开始时间                       | String               | 8:00
 start-time        | 结束时间                       | String                | 24:00
 
-## Events
+### Events
 event             | descripton                  
 ------------------|-----------------------------
 change         | 选择日期事件     
