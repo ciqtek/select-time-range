@@ -2,6 +2,10 @@
 
 > 日期时间选择插件
 
+![](https://github.com/zhouyangit/select-time-range/blob/master/src/assets/demo1.png?raw=true)
+![](https://github.com/zhouyangit/select-time-range/blob/master/src/assets/demo2.png?raw=true)
+
+
 ### Installation
 ```bash
 npm install select-range-time --save
