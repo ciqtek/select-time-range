@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <select-time @timeRange="getTimeRange" @change="handleChange" :data="data" range="6" :start-time="startTime" :end-time="endTime"></select-time>
+    <select-time @timeRange="getTimeRange" @change="handleChange" :data="data" :range="range" :start-time="startTime" :end-time="endTime"></select-time>
 
     <p>当前选择的日期为: {{selectDate.date}} 【{{selectDate.start_time}} -- {{selectDate.end_time}}】</p>
   </div>
@@ -15,12 +15,12 @@ export default {
   },
   data () {
     return {
-      range: '6',
+      range: '7',
       startTime: '7:00',
       endTime: '23:00',
       selectDate: {},
       data: [{
-        'name': '周会1',
+        'name': '部门例会',
         'start_time': '11:30',
         'end_time': '13:00'
       }]
@@ -36,7 +36,6 @@ export default {
         }]
     },
     getTimeRange (value) {
-      console.log(value)
       this.selectDate = value
     }
   }
