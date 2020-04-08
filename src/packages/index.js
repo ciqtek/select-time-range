@@ -1,8 +1,3 @@
-/*
- * @Author: zhouy@ciqtek.com
- * @Date: 2020-04-02 15:57:28
- * @Description: 
- */
 import Select from './Select.vue'
 
 // Declare install function executed by Vue.use()

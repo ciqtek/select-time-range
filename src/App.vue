@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-        <select-time></select-time>
+    <select-time @timeRange="getTimeRange" @change="handleChange" :data="data" range="6" :start-time="startTime" :end-time="endTime"></select-time>
+
+    <p>当前选择的日期为: {{selectDate.date}} 【{{selectDate.start_time}} -- {{selectDate.end_time}}】</p>
   </div>
 </template>
 
@@ -13,7 +15,29 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      range: '6',
+      startTime: '7:00',
+      endTime: '23:00',
+      selectDate: {},
+      data: [{
+        'name': '周会1',
+        'start_time': '11:30',
+        'end_time': '13:00'
+      }]
+    }
+  },
+  methods: {
+    handleChange (e) {
+      this.data = [
+        {
+          'name': '周会',
+          'start_time': '7:30',
+          'end_time': '9:00'
+        }]
+    },
+    getTimeRange (value) {
+      console.log(value)
+      this.selectDate = value
     }
   }
 }
@@ -21,7 +45,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -29,7 +53,8 @@ export default {
   margin-top: 60px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 

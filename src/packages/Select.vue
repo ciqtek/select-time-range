@@ -32,8 +32,6 @@
         <div class="td" v-if="titles.length == 0"></div>
       </div>
     </div>
-
-    <p v-if="select.selected">预约({{select.start}}-{{select.end_real}})</p>
   </div>
 </template>
 
@@ -147,7 +145,7 @@ const get_str_list = (str_arr, count) => {
 const get_meeting_data = (room_id, time, meetings) => {
   const time_value = time.value();
   const filter_meetings = meetings.filter(m => {
-    return m.room.toString() == room_id.toString();
+    return 1 == room_id.toString();
   });
 
   for (let i in filter_meetings) {
@@ -268,11 +266,8 @@ export default {
       td_data: {},
       start_date: '',
       end_date: '',
-      start_time: '',
-      end_time: '',
       select_date: '',
       dateRange: [],
-
       room_ids: "",
       select: {
         date: '',
@@ -283,50 +278,60 @@ export default {
         room: {}
       },
       room: {},
-      td_data: {},
       meetings: [],
       rooms: [{
         id: 1
       }],
-      select_date: "",
-      roomName: '',
       date: '',
-      dataList: [],
-      start: '',
-      startId: 0,
-      endId: 0,
-      startTime: '',
-      endTime: '',
-      end: '',
-      rangeDate: [],
-
-
     };
   },
 
   props: {
-    no_title_desc: String,
-    title_label: String
+    range: { // 日期范围
+      type: String,
+      default: '7'
+    },
+    startTime: { // 开始时间
+      type: String,
+      default: '8:00'
+    },
+    endTime: { // 结束时间
+      type: String,
+      default: '24:00'
+    },
+    data: {
+      type: Array
+    }
   },
 
   created () {
     // 获取当前日期
     const startDate = this.dateId(new Date())
-    const endDate = this.getEndDate(7)
+    // 设置截止日期
+    const endDate = this.getEndDate(this.range)
+    // 设置开始和结束日期
     this.setDateRange(startDate, endDate)
-
-    this.start_time = parseTime('9:00').value();
-    this.end_time = parseTime('21:00').value();
     this.refresh()
+  },
+  computed: {
+    start_time () {
+      return parseTime(this.startTime).value()
+    },
+    end_time () {
+      return parseTime(this.endTime).value()
+    }
+  },
 
+  watch: {
+    data () {
+      this.refresh()
+    }
   },
 
   methods: {
-
     nowDate () {
       return new Date(new Date().getTime() + 0);
     },
-
     // 设置时间列表
     refresh () {
       let time_range = []; // start_time 到 end_time 之间每隔30分钟保存一个obj
@@ -341,7 +346,7 @@ export default {
         });
       }
       this.time_range = time_range;
-      this.meetings = this.dataList
+      this.meetings = this.data
       this.checktddata();
     },
 
@@ -378,7 +383,6 @@ export default {
         this.select.end = timed;
       } else {
         this.select.click = false;
-
         if (this.select.start == timed) {
           this.select.selected = false;
         } else if (parseTime(this.select.start).value() > parseTime(
@@ -391,6 +395,7 @@ export default {
 
       this.select.end_real = valueToTime(parseTime(this.select.end).value() +
         30 * 60).string(2);
+      this.$emit('timeRange', { date: this.select_date, start_time: this.select.start, end_time: this.select.end_real })
       this.checktddata();
     },
 
@@ -443,14 +448,19 @@ export default {
       this.start_date = this.dateId(start_date)
       this.end_date = this.dateId(end_date)
     },
-    change () {
-      this.$emit('change', {
-        select_date: this.select_date
-      }, {});
-    },
+
     selectDate (e) {
       this.select_date = e.currentTarget.id
-      this.change();
+      this.select = {
+        selected: false,
+        click: false,
+        start: "",
+        end: "",
+        room: {}
+      }
+      this.$emit('change', e.currentTarget)
+      this.$emit('timeRange', { date: this.select_date, start_time: '00:00', end_time: '00:00' })
+
     },
     addDay (date, day) {
       return new Date(Date.parse(date) + 86400000 * day);
@@ -522,8 +532,9 @@ export default {
   height: 96px;
   width: 96px;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 6px;
   display: inline-block;
+  cursor: pointer;
 }
 
 .date-select .tiem.item_0 {
@@ -539,7 +550,8 @@ export default {
 }
 
 .date-select .item.select {
-  background: #dfffd8;
+  background: #409eff;
+  color: #fff;
 }
 .time_table {
   height: 100%;
@@ -611,8 +623,8 @@ export default {
 }
 
 .table .td.selected {
-  border-top: 1px solid #dfffd8;
-  background-color: #dfffd8;
+  border-top: 1px solid #409eff;
+  background-color: #409eff;
 }
 
 .table .td.top {
