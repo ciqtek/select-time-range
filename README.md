@@ -34,11 +34,7 @@ data () {
       startTime: '7:00',
       endTime: '23:00',
       selectDate: {},
-      data: [{
-        'name': '部门例会',
-        'start_time': '11:30',
-        'end_time': '13:00'
-      }]
+      data: []
     }
   },
 methods: {
@@ -57,11 +53,7 @@ methods: {
 
 ```
 
-### API
-
 ### Props
-
-## Props
 prop              | descripton                   | type                   | default
 ------------------|------------------------------|:----------------------:|---------------------
 data              | 已有的数据                     | Array                 | -
