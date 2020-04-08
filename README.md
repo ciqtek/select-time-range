@@ -26,7 +26,7 @@ npm install select-time-range --save
 ```
 
 ``` js
-import selectTime from 'select-range-time'
+import selectTime from 'select-time-range'
 
 components: {
     selectTime
