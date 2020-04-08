@@ -1,7 +1,7 @@
 {
   "name": "select-time-range",
   "description": "select-time-range",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "marven@163.com",
   "license": "MIT",
   "main": "dist/build.js",
